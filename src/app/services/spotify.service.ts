@@ -6,10 +6,12 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class SpotifyService {
+  
   artists: any[] = [];
+  tracks: any[] = [];
 
   urlSpotify: string = "https://api.spotify.com/v1/";
-  token: string = "BQDar7SGrgWomxc9sv0RCmVc6MbWh-e2TausF5e5YyzsQA75HKzgRzn1JKuNxCj_AeCUHtfStXcEq1k2Wls";
+  token: string = "BQAhWYH6kCK2gTuNbI68GmsWt-NBlUXq8ANN1wTDiuBJlmZJbccVuQYVDLMY__pHeaEAOK_apctcMvaAPxk";
   constructor(public http: HttpClient) {
     console.log("spoti service ready");
   }
@@ -41,10 +43,27 @@ export class SpotifyService {
     let headers = this.getHeaders();
 
     //  {headers} es la info que mandamo en el header (headers:headers)
-    return this.http.get(url, { headers }).map((resp: any) => {
+    return this.http.get(url, { headers })
+    .map((resp: any) => {
       this.artists = resp.artists.items;
       return this.artists;
     });
     
   }
-}
+
+  getTop(id:string){
+    let url =  `${this.urlSpotify}artists/${id}/top-tracks`;
+
+    let headers = this.getHeaders();
+
+    return this.http.get(url, { headers })
+    .map((resp: any) => {
+      this.artists = resp.artists.items;
+      return this.artists;
+    });
+    }
+
+
+
+
+  }

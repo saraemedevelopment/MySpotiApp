@@ -9,7 +9,8 @@ import { SpotifyService } from "../../services/spotify.service";
 })
 export class ArtistComponent implements OnInit {
 
-artista:any = {};
+  artist:any = {};
+  pistas:any= {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -23,12 +24,19 @@ artista:any = {};
 
       console.log(id);
       this._spotify.getArtist(id)
-      .subscribe(artista =>{
-        console.log(artista);
-        this.artista = artista;
+      .subscribe(artist =>{
+        console.log(artist);
+        this.artist = artist;
         
-      })
-     
+      });
+      this._spotify.getTop(id)
+      .map ((resp:any) => resp.tracks)
+      .subscribe( pistas =>{
+        console.log(pistas);
+        this.pistas = pistas;
+      } )
     });
+  
+
   }
 }

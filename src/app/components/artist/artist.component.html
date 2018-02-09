@@ -1,3 +1,50 @@
-<p>
-{{artista.name}}
-</p>
+<div class="container top30">
+    <div class="row">
+        <div class="col-md-3">
+            <img class="thumbnail img-circular" [src]="artist.images | sinfoto" alt="">
+        </div>
+
+        <div class="col-md-9">
+            <h1>{{artist.name}}</h1>
+                <hr>
+                <a [href]= "artist.external.urls?.spotify" target= "_blanck" type="button" class="btn btn-outline-success">Abrir</a>
+                <button [routerLink]="['/search']" type="button" class="btn btn-outline-danger">Volver</button>
+
+        </div>
+    </div>
+
+    <div class="row top30">
+        <div class="col-md-12">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Popularidad</th>
+                    <th scope="col">Escuchar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let pista of pistas; let i = index">
+                    <th scope="row">#</th>
+                    <td>
+                        <img class="img-50" [src]="pista.album.images | sinfoto" alt="">
+                    </td>
+                    <td>{{i + 1}}</td>
+                    <td>{{pista.name}}</td>
+                    <td>{{pista.popularity}}%</td>
+                    <td>
+                        <audio controls>
+                        <source [src]="pista.preview_url">
+                        </audio>
+                        </td>
+                    
+                  </tr>
+             
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
